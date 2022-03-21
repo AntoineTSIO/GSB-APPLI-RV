@@ -25,4 +25,8 @@ public class ModeleGsb {
         return null;
     }
 
+    public void peupler(){
+        return;
+    }
+
 }

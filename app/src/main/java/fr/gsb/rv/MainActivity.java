@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     Button bSeDeconnecter;
     Button bAnnuler;
 
+    Visiteur visiteur;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,10 +52,15 @@ public class MainActivity extends AppCompatActivity {
         bSeConnecter = findViewById(R.id.bValider);
         bAnnuler = findViewById(R.id.bAnnuler);
 
+
         bSeConnecter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                seConnecter(etMatricule.getText().toString() , etMdp.getText().toString());
+                try {
+                    seConnecter(view);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -65,21 +72,41 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void seConnecter(String matricule, String mdp){
-        String url = "http://172.20.38.1:5000/visiteurs/"+matricule+"/"+mdp;
-        Visiteur visiteur = new Visiteur();
+    public void seConnecter(View view) throws UnsupportedEncodingException {
+        String id = this.etMatricule.getText().toString();
+        String mdp = this.etMdp.getText().toString();
+
+        String matricule = URLEncoder.encode(id, "UTF-8");
+        String url = String.format("http://172.20.38.2:5000/visiteurs/%s/%s", id, mdp);
 
         Response.Listener<JSONObject> ecouteurResponse = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Log.i("APP-RV","Résponse HTTP : " + response);
                 try{
-                    visiteur.setMatricule(response.getString("vis_matricule"));
-                    visiteur.setNom(response.getString("vis_nom"));
-                    visiteur.setPrenom(response.getString("vis_prenom"));
-                    visiteur.setMdp(response.getString("vis_mdp"));
+                    MainActivity.this.visiteur = new Visiteur();
+                    MainActivity.this.visiteur.setMatricule( response.getString("vis_matricule") );
+                    MainActivity.this.visiteur.setNom( response.getString("vis_nom") );
+                    MainActivity.this.visiteur.setPrenom( response.getString("vis_prenom") );
+                    MainActivity.this.visiteur.setMdp( mdp );
+                    Log.i("APP-RV", "Objet visiteur :" + visiteur.toString());
+
+                } catch (JSONException e) {
+                    Log.e("APP-RV", "Erreur JSON : " + e.getMessage());
+                    e.printStackTrace();
                 }
+                Log.i("APP-RV", "Objet visiteur :" + visiteur.toString());
+
+
+                if( MainActivity.this.visiteur.getMatricule() != null ) {
+                    Session.ouvrir(MainActivity.this.visiteur);
+                    Session session = Session.getSession();
+                }
+                MainActivity.this.bSeConnecter.setEnabled(false);
+                MainActivity.this.bAnnuler.setEnabled(false);
+                Toast.makeText(MainActivity.this, "Connexion réussie", Toast.LENGTH_LONG).show();
             }
-        }
+        };
     }
 
     public void annuler(){
