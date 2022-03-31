@@ -2,6 +2,7 @@ package fr.gsb.rv;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,11 +34,15 @@ public class MainActivity extends AppCompatActivity {
     TextView tvVisiteur;
     TextView tvMatricule;
     TextView tvMdp;
+    TextView tvErreur;
     EditText etMatricule;
     EditText etMdp;
     Button bSeConnecter;
     Button bSeDeconnecter;
     Button bAnnuler;
+    String matricule;
+    String mdp;
+
 
     Visiteur visiteur;
 
@@ -51,14 +57,19 @@ public class MainActivity extends AppCompatActivity {
         etMdp = findViewById(R.id.etMdp);
         bSeConnecter = findViewById(R.id.bValider);
         bAnnuler = findViewById(R.id.bAnnuler);
+        tvErreur = findViewById(R.id.tvErreur);
 
 
         bSeConnecter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                matricule = etMatricule.getText().toString();
+                Log.i("APP-RV", "Matricule" + matricule);
+                mdp = etMdp.getText().toString();
+                Log.i("APP-RV", "Mdp" + mdp);
                 try {
-                    seConnecter(view);
-                } catch (UnsupportedEncodingException e) {
+                    seConnecter(matricule, mdp);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -72,41 +83,54 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void seConnecter(View view) throws UnsupportedEncodingException {
-        String id = this.etMatricule.getText().toString();
-        String mdp = this.etMdp.getText().toString();
+    public void seConnecter(String matricule, String mdp){
 
-        String matricule = URLEncoder.encode(id, "UTF-8");
-        String url = String.format("http://172.20.38.2:5000/visiteurs/%s/%s", id, mdp);
+        String url = "http://192.168.0.47:5000/visiteurs/"+matricule+"/"+mdp;
+        Visiteur vis = new Visiteur();
 
-        Response.Listener<JSONObject> ecouteurResponse = new Response.Listener<JSONObject>() {
+        Response.Listener<JSONObject> ecouteurReponse = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.i("APP-RV","Résponse HTTP : " + response);
                 try{
-                    MainActivity.this.visiteur = new Visiteur();
-                    MainActivity.this.visiteur.setMatricule( response.getString("vis_matricule") );
-                    MainActivity.this.visiteur.setNom( response.getString("vis_nom") );
-                    MainActivity.this.visiteur.setPrenom( response.getString("vis_prenom") );
-                    MainActivity.this.visiteur.setMdp( mdp );
-                    Log.i("APP-RV", "Objet visiteur :" + visiteur.toString());
 
-                } catch (JSONException e) {
+                    vis.setNom(response.getString("vis_nom"));
+                    vis.setMatricule(response.getString("vis_matricule"));
+                    vis.setMdp(response.getString("vis_mdp"));
+                    vis.setPrenom(response.getString("vis_prenom"));
+                    Session.ouvrir(vis);
+                    Log.i("APP-RV", "Info HTTP : " + "Connecté ! " + vis);
+                    tvErreur.setVisibility(View.INVISIBLE);
+
+                    Bundle paquet = new Bundle();
+                    Gson gson = new Gson();
+                    String SessionJson = gson.toJson(Session.getSession());
+                    paquet.putString("sessionJSON", SessionJson);
+
+                    Intent intentionMenuRv = new Intent(MainActivity.this, MenuRvActivity.class);
+                    intentionMenuRv.putExtras(paquet);
+                    startActivity(intentionMenuRv);
+
+                }catch (JSONException e){
                     Log.e("APP-RV", "Erreur JSON : " + e.getMessage());
-                    e.printStackTrace();
+                    tvErreur.setVisibility(View.VISIBLE);
+                    etMdp.getText().clear();
                 }
-                Log.i("APP-RV", "Objet visiteur :" + visiteur.toString());
-
-
-                if( MainActivity.this.visiteur.getMatricule() != null ) {
-                    Session.ouvrir(MainActivity.this.visiteur);
-                    Session session = Session.getSession();
-                }
-                MainActivity.this.bSeConnecter.setEnabled(false);
-                MainActivity.this.bAnnuler.setEnabled(false);
-                Toast.makeText(MainActivity.this, "Connexion réussie", Toast.LENGTH_LONG).show();
             }
         };
+
+        Response.ErrorListener ecouteurErreur = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("APP-RV", "Erreur HTTP : " + error.getMessage());
+                tvErreur.setVisibility(View.VISIBLE);
+                etMdp.getText().clear();
+            }
+        };
+
+        JsonObjectRequest requete = new JsonObjectRequest(Request.Method.GET, url, null, ecouteurReponse, ecouteurErreur);
+        RequestQueue fileRequetes = Volley.newRequestQueue(this);
+        fileRequetes.add(requete);
+
     }
 
     public void annuler(){
