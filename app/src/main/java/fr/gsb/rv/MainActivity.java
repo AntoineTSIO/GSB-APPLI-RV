@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void seConnecter(String matricule, String mdp){
 
-        String url = "http://192.168.0.47:5000/visiteurs/"+matricule+"/"+mdp;
+        String url = "http://192.168.0.47:5000/visiteurs/"+matricule+"/"+mdp; //Connexion au Web Service REST afin d'accéder à la base de données
         Visiteur vis = new Visiteur();
 
         Response.Listener<JSONObject> ecouteurReponse = new Response.Listener<JSONObject>() {

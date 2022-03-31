@@ -27,8 +27,8 @@ public class MenuRvActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu_rv);
 
         //Affectation des boutons et du textview aux objets Java
-        bConsulterRv = findViewById(R.id.bConsulter);
-        bSaisirRv = findViewById(R.id.bSaisir);
+        bConsulterRv = findViewById(R.id.bConsulterRv);
+        bSaisirRv = findViewById(R.id.bSaisirRv);
         tvVisiteur = findViewById(R.id.tvVisiteur);
 
         Bundle paquet = this.getIntent().getExtras();
