@@ -6,33 +6,58 @@
     android:layout_height="match_parent"
     tools:context=".MenuRvActivity">
 
-    <LinearLayout
-        android:layout_width="354dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="32dp"
-        android:orientation="vertical"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <TextView
-            android:id="@+id/tvVisiteur"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
+        <Space
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/bConsulter"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Consulter un Rapport de Visite" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/bSaisir"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Saisir un Rapport de Visite" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvVisiteur"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
+
+            <Button
+                android:id="@+id/bConsulterRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Consulter un rapport de visite" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
+
+            <Button
+                android:id="@+id/bSaisirRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Saisir un rapport de visite" />
+        </LinearLayout>
+
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

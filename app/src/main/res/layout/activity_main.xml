@@ -6,73 +6,89 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="354dp"
-        android:layout_height="265dp"
-        android:layout_marginTop="32dp"
-        android:orientation="vertical"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tvErreur"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Echec à la connexion. Recommencez..."
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:visibility="invisible" />
-
-        <TextView
-            android:id="@+id/tvMatricule"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Matricule :" />
-
-        <EditText
-            android:id="@+id/etMatricule"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName" />
-
-        <TextView
-            android:id="@+id/tvMdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Mot de passe :" />
-
-        <EditText
-            android:id="@+id/etMdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/bValider"
-                android:layout_width="79dp"
+            <TextView
+                android:id="@+id/tvErreur"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:text="Valider" />
+                android:text="Echec à la connexion. Recommencez..."
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
 
-            <Button
-                android:id="@+id/bAnnuler"
-                android:layout_width="78dp"
+            <TextView
+                android:id="@+id/tvMatricule"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:text="Annuler" />
+                android:text="Matricule :" />
 
+            <EditText
+                android:id="@+id/etMatricule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
+
+            <TextView
+                android:id="@+id/tvMdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mot de passe :" />
+
+            <EditText
+                android:id="@+id/etMdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bValider"
+                    android:layout_width="79dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Valider" />
+
+                <Button
+                    android:id="@+id/bAnnuler"
+                    android:layout_width="78dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Annuler" />
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
