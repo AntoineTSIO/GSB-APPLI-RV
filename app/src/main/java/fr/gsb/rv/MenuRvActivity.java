@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-
+import fr.gsb.rv.technique.Session;
 import fr.gsb.rv.entites.Visiteur;
 
 public class MenuRvActivity extends AppCompatActivity {
@@ -31,10 +31,12 @@ public class MenuRvActivity extends AppCompatActivity {
         bSaisirRv = findViewById(R.id.bSaisirRv);
         tvVisiteur = findViewById(R.id.tvVisiteur);
 
-        Bundle paquet = this.getIntent().getExtras();
-        Gson gson = new Gson();
-        String sessionJSON = paquet.getString("sessionJSON");
-        tvVisiteur.setText(sessionJSON);
+        //Affichage du nom et du prenom du visiteur sur le menu
+        try {
+            tvVisiteur.setText(tvVisiteur.getText() + " " + Session.getSession().getLeVisiteur().getPrenom() + " " + Session.getSession().getLeVisiteur().getNom());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         bConsulterRv.setOnClickListener(new View.OnClickListener() {
             @Override

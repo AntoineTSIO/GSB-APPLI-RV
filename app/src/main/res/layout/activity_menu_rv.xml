@@ -31,7 +31,8 @@
                 android:id="@+id/tvVisiteur"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:textAlignment="center"
+                android:text="Bienvenue" />
 
             <Space
                 android:layout_width="match_parent"
