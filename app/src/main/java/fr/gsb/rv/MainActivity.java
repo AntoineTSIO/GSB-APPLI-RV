@@ -64,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 matricule = etMatricule.getText().toString();
-                Log.i("APP-RV", "Matricule" + matricule);
+                Log.i("APP-RV", "Matricule : " + matricule);
                 mdp = etMdp.getText().toString();
-                Log.i("APP-RV", "Mdp" + mdp);
+                Log.i("APP-RV", "Mdp : " + mdp);
                 try {
                     seConnecter(matricule, mdp);
                 } catch (Exception e) {
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void seConnecter(String matricule, String mdp){
 
-        String url = "http://192.168.0.47:5000/visiteurs/"+matricule+"/"+mdp; //Connexion au Web Service REST afin d'accéder à la base de données
+        String url = "http://10.0.2.2:5000/visiteurs/"+matricule+"/"+mdp; //Connexion au Web Service REST afin d'accéder à la base de données
         Visiteur vis = new Visiteur();
 
         Response.Listener<JSONObject> ecouteurReponse = new Response.Listener<JSONObject>() {

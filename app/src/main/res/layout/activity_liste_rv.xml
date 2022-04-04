@@ -27,13 +27,6 @@
                 android:textSize="20dp"
                 android:text="Liste des rapports de visite" />
 
-            <TextView
-                android:id="@+id/tvRapportSélectionné"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="Rapport sélectionné :" />
-
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="15dp" />
