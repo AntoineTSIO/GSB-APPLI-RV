@@ -16,7 +16,7 @@ import java.util.List;
 
 public class RechercheRvActivity extends AppCompatActivity {
 
-    private static final String [] lesMois = {"Janvier","Février","Mars","Avril","Mail","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"};
+    private static final String [] lesMois = {"Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"};
 
     Button bAfficher;
     Spinner spMois;

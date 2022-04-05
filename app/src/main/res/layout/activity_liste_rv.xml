@@ -31,6 +31,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="15dp" />
 
+            <TextView
+                android:id="@+id/tvErreur"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:visibility="invisible"
+                android:text="Erreur... Aucun rapport de visite enregistré pour ce mois-ci" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
+
             <ListView
                 android:id="@+id/lvRapportsVisite"
                 android:layout_width="match_parent"
