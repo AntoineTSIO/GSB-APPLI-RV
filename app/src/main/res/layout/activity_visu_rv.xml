@@ -69,64 +69,10 @@
 
             <TextView
                 android:id="@+id/tvPraticien"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 android:text="Praticien" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvNomPraticien"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="" />
-
-                <TextView
-                    android:id="@+id/tvPrenomPraticien"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="" />
-
-                <TextView
-                    android:id="@+id/tvCodePostal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="" />
-
-                <TextView
-                    android:id="@+id/tvVille"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="" />
-
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="15dp" />
-
-            <TextView
-                android:id="@+id/tvMotif"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Motif de la visite : " />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="15dp" />
-
-            <TextView
-                android:id="@+id/tvBilanGeneral"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bilan de la visite " />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -134,17 +80,69 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvNomPraticien"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Nom : " />
+
+                <TextView
+                    android:id="@+id/tvPrenomPraticien"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Prénom : " />
+
+                <TextView
+                    android:id="@+id/tvCodePostal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Code Postal : " />
+
+                <TextView
+                    android:id="@+id/tvVille"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Ville : " />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvMotif"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Motif de la visite : " />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
+
+                <TextView
                     android:id="@+id/tvBilan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="" />
+                    android:text="Bilan de la visite : " />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
 
                 <TextView
                     android:id="@+id/tvCoefConfiance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12dp"
                     android:layout_weight="1"
                     android:text="Coefficient de confiance : " />
 
@@ -156,7 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Echantillons donnés" />
+                android:text="Echantillons offerts" />
 
 
         </LinearLayout>

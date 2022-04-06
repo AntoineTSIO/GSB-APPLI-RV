@@ -2,8 +2,10 @@ package fr.gsb.rv;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -38,8 +40,9 @@ public class VisuRvActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visu_rv);
 
+        //Récupération des données stockées dans le Bundle
         Bundle paquetRv = this.getIntent().getExtras();
-        rap_num = paquetRv.getInt("rap_numero");
+        rap_num = paquetRv.getInt("rap_num");
         rap_bilan = paquetRv.getString("rap_bilan");
         pra_cp = paquetRv.getString("pra_cp");
         pra_nom = paquetRv.getString("pra_nom");
@@ -49,6 +52,7 @@ public class VisuRvActivity extends AppCompatActivity {
         rap_coef_confiance = paquetRv.getInt("rap_coef_confiance");
         rap_motif = paquetRv.getString("rap_motif");
 
+        //Liaison des variables crées au layout
         tvRapNum = findViewById(R.id.tvNumRapportVisite);
         tvRapBilan = findViewById(R.id.tvBilan);
         tvPraCp = findViewById(R.id.tvCodePostal);
@@ -59,7 +63,9 @@ public class VisuRvActivity extends AppCompatActivity {
         tvCoefConfiance = findViewById(R.id.tvCoefConfiance);
         tvMotif = findViewById(R.id.tvMotif);
         tvMatriculeVisiteur = findViewById(R.id.tvMatriculeVisiteur);
+        bEchantillons = findViewById(R.id.bEchantillons);
 
+        //Changement des valeurs des différentes variables pour y ajouter celles envoyées avec le Bundle
         tvMatriculeVisiteur.setText(tvMatriculeVisiteur.getText() + Session.getSession().getLeVisiteur().getMatricule());
         tvRapNum.setText(tvRapNum.getText() + String.valueOf(rap_num));
         tvRapBilan.setText(tvRapBilan.getText() + rap_bilan);
@@ -70,6 +76,21 @@ public class VisuRvActivity extends AppCompatActivity {
         tvPraVille.setText(tvPraVille.getText() + pra_ville);
         tvCoefConfiance.setText(tvCoefConfiance.getText() + String.valueOf(rap_coef_confiance));
         tvMotif.setText(tvMotif.getText() + rap_motif);
+
+        bEchantillons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentEchantillons = new Intent(VisuRvActivity.this, VisuEchantActivity.class);
+                //Création d'un nouveau Bundle pour envoyer le matricule et le numéro de rapport permettant une récupération de la liste des échantillons offerts donnée dans l'activité suivante.
+                Bundle paquetEchantillons = new Bundle();
+                paquetEchantillons.putString("vis_matricule", Session.getSession().getLeVisiteur().getMatricule());
+                paquetEchantillons.putInt("rap_num", paquetRv.getInt("rap_num"));
+                Log.i("APP-RV", "Matricule: "+paquetEchantillons.getString("vis_matricule")+" Rapport: "+paquetEchantillons.getInt("rap_num"));
+                intentEchantillons.putExtras(paquetEchantillons);
+                startActivity(intentEchantillons);
+
+            }
+        });
 
     }
 }

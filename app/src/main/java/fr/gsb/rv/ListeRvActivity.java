@@ -143,8 +143,6 @@ public class ListeRvActivity extends AppCompatActivity{
                             paquetRv.putString("rap_date_visite", rapportCourant.getRap_date_visite());
                             paquetRv.putString("pra_prenom", rapportCourant.getPra_prenom());
                             paquetRv.putString("pra_ville", rapportCourant.getPra_ville());
-
-                            Log.i("APP-RV-DEBUG","paquet :"+paquetRv.getInt("rap_numero")+" Rapport Courant :"+rapportCourant.getRap_numero());
                             intentRv.putExtras(paquetRv);
                             startActivity(intentRv);
                         }
