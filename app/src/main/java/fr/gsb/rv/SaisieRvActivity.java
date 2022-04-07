@@ -153,12 +153,11 @@ public class SaisieRvActivity extends AppCompatActivity {
                 for(int i=0;i<response.length();i++){
                     try {
                         JSONObject element = response.getJSONObject(i);
-                        Praticien unPraticien = new Praticien(
-                                element.getInt("pra_num"),
-                                element.getString("pra_nom"),
-                                element.getString("pra_prenom"),
-                                element.getString("pra_ville")
-                        );
+                        Praticien unPraticien = new Praticien();
+                        unPraticien.setNumero(element.getInt("pra_num"));
+                        unPraticien.setNom(element.getString("pra_nom"));
+                        unPraticien.setPrenom(element.getString("pra_prenom"));
+                        unPraticien.setVille(element.getString("pra_ville"));
                         listePraticiens.add(unPraticien);
                         Log.i("APP-RV Saisie","Praticien "+i+": "+unPraticien);
                     } catch (JSONException e) {
@@ -171,7 +170,7 @@ public class SaisieRvActivity extends AppCompatActivity {
                 spPraticien.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        Log.i("APP-RV Saisie","Praticien n°"+i+" dans la liste choisi");
+                        Log.i("APP-RV Saisie","Praticien n°"+listePraticiens.get(i).getNumero()+" dans la liste choisi");
                         praticienSelectionne = listePraticiens.get(i).getNumero();
                     }
                     @Override

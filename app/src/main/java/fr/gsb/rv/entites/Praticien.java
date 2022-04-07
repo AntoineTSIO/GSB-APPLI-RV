@@ -49,11 +49,6 @@ public class Praticien {
 
     @Override
     public String toString() {
-        return "Praticien{" +
-                "numero=" + numero +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", ville='" + ville + '\'' +
-                '}';
+        return nom + ' ' + prenom;
     }
 }
