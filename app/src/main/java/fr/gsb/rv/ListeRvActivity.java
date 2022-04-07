@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.List;
 
 import fr.gsb.rv.entites.RapportVisite;
+import fr.gsb.rv.technique.Ip;
 import fr.gsb.rv.technique.Session;
 
 public class ListeRvActivity extends AppCompatActivity{
@@ -85,7 +86,7 @@ public class ListeRvActivity extends AppCompatActivity{
 
     public void getRapports (String matricule, String mois, String annee){
 
-        String url = "http://10.0.2.2:5000/rapports/" + matricule + "/" + mois + "/" + annee; //Connexion au Web Service REST afin d'accéder à la base de données
+        String url = "http://"+Ip.getIp()+":5000/rapports/" + matricule + "/" + mois + "/" + annee; //Connexion au Web Service REST afin d'accéder à la base de données
 
         Response.Listener<JSONArray> ecouteurReponse = new Response.Listener<JSONArray>() {
             @Override

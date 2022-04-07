@@ -91,6 +91,5 @@ public class VisuRvActivity extends AppCompatActivity {
 
             }
         });
-
     }
 }

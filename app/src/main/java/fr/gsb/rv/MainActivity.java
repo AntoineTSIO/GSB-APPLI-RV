@@ -26,6 +26,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import fr.gsb.rv.entites.Visiteur;
+import fr.gsb.rv.technique.Ip;
 import fr.gsb.rv.technique.Session;
 
 public class MainActivity extends AppCompatActivity {
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void seConnecter(String matricule, String mdp){
 
-        String url = "http://10.0.2.2:5000/visiteurs/"+matricule+"/"+mdp; //Connexion au Web Service REST afin d'accéder à la base de données
+        String url = "http://"+ Ip.getIp()+":5000/visiteurs/"+matricule+"/"+mdp; //Connexion au Web Service REST afin d'accéder à la base de données
         Visiteur vis = new Visiteur();
 
         Response.Listener<JSONObject> ecouteurReponse = new Response.Listener<JSONObject>() {

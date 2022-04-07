@@ -23,18 +23,30 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvDateVisite"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Date de la visite : " />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date de la visite : "/>
+
+                <TextView
+                    android:id="@+id/tvDateVisite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/bDateVisite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12dp"
-                android:text="Modifier date" />
+                android:text="Modifier la date"
+                android:textSize="12dp"/>
 
             <Space
                 android:layout_width="match_parent"
@@ -49,7 +61,8 @@
             <Spinner
                 android:id="@+id/spPraticien"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"/>
 
             <Space
                 android:layout_width="match_parent"
@@ -64,7 +77,8 @@
             <Spinner
                 android:id="@+id/spMotif"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"/>
 
             <TextView
                 android:id="@+id/tvBilan"
@@ -93,7 +107,8 @@
             <Spinner
                 android:id="@+id/spCoefConfiance"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"/>
 
             <Space
                 android:layout_width="match_parent"

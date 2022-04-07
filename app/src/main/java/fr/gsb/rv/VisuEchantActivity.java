@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import fr.gsb.rv.entites.Echantillons;
+import fr.gsb.rv.technique.Ip;
 import fr.gsb.rv.technique.Session;
 
 public class VisuEchantActivity extends AppCompatActivity {
@@ -71,7 +72,7 @@ public class VisuEchantActivity extends AppCompatActivity {
     }
 
     public void getEchantillonsOfferts(String matricule, Integer numRapportVisite){
-        String url = "http://10.0.2.2:5000/rapports/echantillons/" + matricule + "/" + numRapportVisite; //Connexion au Web Service REST afin d'accéder à la base de données
+        String url = "http://"+ Ip.getIp()+":5000/rapports/echantillons/" + matricule + "/" + numRapportVisite; //Connexion au Web Service REST afin d'accéder à la base de données
 
         Response.Listener<JSONArray> ecouteurReponse = new Response.Listener<JSONArray>() {
             @Override
