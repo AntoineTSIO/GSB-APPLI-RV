@@ -26,7 +26,7 @@ L'application mobile GSB-Appli-RV utilise une base de données nommée [GSB-RV-B
 
 ## Accès à la base de données
 
-L'application mobile GSB-Appli-RV utilise une base de données nommée [GSB-RV-BD](https://github.com/AntoineTSIO/GSB-RV-BD.git)
+L'application mobile GSB-Appli-RV utilise une base de données nommée [GSB-RV-BD](https://github.com/AntoineTSIO/GSB-RV-BD.git) pour laquelle l'accès aux données ainsi que l'insertion de données se fait à l'aide d'un Web Service REST fait en Python 3.8 et dont le code source se trouve sur le dépôt [GSB-RV-Visiteur-Serveur](https://github.com/AntoineTSIO/GSB-RV-Visiteur-Serveur.git)
 
 ### Licence
 
