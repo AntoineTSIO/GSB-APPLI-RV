@@ -33,14 +33,17 @@ import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import fr.gsb.rv.entites.Praticien;
 import fr.gsb.rv.technique.Ip;
+import fr.gsb.rv.technique.Session;
 
+@SuppressLint("DefaultLocale")
 public class SaisieRvActivity extends AppCompatActivity {
 
-    //Création des variables reliées au layout
+//Création des variables reliées au layout
     TextView tvDateVisite;
     Spinner spPraticien;
     Spinner spMotif;
@@ -50,15 +53,23 @@ public class SaisieRvActivity extends AppCompatActivity {
     Button bValider;
     Button bAnnuler;
 
-    //Création d'un ecouteur pour le choix de la date de visite avec une portée de package
-    DatePickerDialog.OnDateSetListener ecouteurDate;
-    String dateSelectionnee;
-
-    //Création des listes utilisées par les Spinner
+//Création des listes utilisées par les Spinner
     String[] listeMotifs = {"Premier rendez-vous","Rendez-vous semestriel","Visite de contrôle","Visite après longue durée","Visite en urgence"};
     ArrayList<Integer> listeCoefConfiance = new ArrayList<>();
     ArrayList<Praticien> listePraticiens = new ArrayList<>();
     int praticienSelectionne;
+
+//Création de la date du jour
+    LocalDate dateActuelle = LocalDate.now();
+    int jourActuel = dateActuelle.getDayOfMonth();
+    int moisActuel = dateActuelle.getMonthValue();
+    int anneeActuelle = dateActuelle.getYear();
+
+    String dateSaisie = String.format("%04d-%02d-%02d",anneeActuelle, moisActuel, jourActuel);
+
+//Création d'un ecouteur pour le choix de la date de visite avec une portée de package
+    DatePickerDialog.OnDateSetListener ecouteurDate;
+    String dateSelectionnee = String.format("%04d-%02d-%02d",anneeActuelle, moisActuel, jourActuel);
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -73,6 +84,10 @@ public class SaisieRvActivity extends AppCompatActivity {
         etBilan = findViewById(R.id.etBilan);
         bDateVisite = findViewById(R.id.bDateVisite);
         bAnnuler = findViewById(R.id.bAnnuler);
+        bValider = findViewById(R.id.bValider);
+
+        tvDateVisite.setText(String.format("%04d-%02d-%02d",anneeActuelle, moisActuel, jourActuel));
+
         bDateVisite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,21 +104,33 @@ public class SaisieRvActivity extends AppCompatActivity {
                 startActivity(intentAnnuler);
             }
         });
+        bValider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    envoyerSaisie(view);
+                    Log.i("APP-RV Saisie","Envoi du formulaire");
+                } catch (JSONException e) {
+                    Log.e("APP-RV Saisie","Erreur lors de l'envoi de la saisie : "+e.getMessage());
+                }
+            }
+        });
 
+//Implémentaiton de l'écouteur de date permettant de changer la date sélectionnée par le Visiteur
         ecouteurDate = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 dateSelectionnee = String.format(
-                        "%02d/%02d/%04d",
-                        day,
+                        "%04d-%02d-%02d",
+                        year,
                         month +1,
-                        year
+                        day
                 );
                 tvDateVisite.setText( dateSelectionnee );
             }
         };
 
-        //Implémentation de la liste déroulante des motifs
+//Implémentation de la liste déroulante des motifs
         ArrayAdapter<String> listeMotifsArrayAdapter = new ArrayAdapter<>(SaisieRvActivity.this, android.R.layout.simple_spinner_item, listeMotifs);
         listeMotifsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spMotif.setAdapter(listeMotifsArrayAdapter);
@@ -118,7 +145,7 @@ public class SaisieRvActivity extends AppCompatActivity {
             }
         });
 
-        //Implémentation de la liste déroulante des coefficients de confiance
+//Implémentation de la liste déroulante des coefficients de confiance
         for(int i=1; i<=5; i++){
             listeCoefConfiance.add(i);
         }
@@ -137,14 +164,19 @@ public class SaisieRvActivity extends AppCompatActivity {
         });
         getListePraticiens();
     }
-    //Modification de la date de visite
+
+//Modification de la date de visite via un calendrier affiché sur l'appareil Android du visiteur
     public void selectDateVisite(View view){
-        LocalDate dateCourante = LocalDate.now();
-        int jour = dateCourante.getDayOfMonth();
-        int mois = dateCourante.getMonthValue();
-        int annee = dateCourante.getYear();
-        new DatePickerDialog(this, ecouteurDate, jour, mois, annee).show();
+        GregorianCalendar dateDuJour = new GregorianCalendar();
+        int jour = dateDuJour.get(Calendar.DAY_OF_MONTH);
+        int mois = dateDuJour.get(Calendar.MONTH);
+        int annee = dateDuJour.get(Calendar.YEAR);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, ecouteurDate, annee, mois, jour);
+        datePickerDialog.getDatePicker().setMaxDate(new Date().getTime()); //Empêche la sélection d'une date ultérieure à la date du jour
+        datePickerDialog.show();
     }
+
+//Implémentation de la liste déroulante des praticiens
     public ArrayList<Praticien>getListePraticiens(){
         String url = "http://"+ Ip.getIp()+":5000/praticiens"; //Connexion au Web Service REST afin d'accéder à la base de données;
         Response.Listener<JSONArray> ecouteurReponsePraticiens = new Response.Listener<JSONArray>() {
@@ -193,7 +225,35 @@ public class SaisieRvActivity extends AppCompatActivity {
         return listePraticiens;
     }
 
+//Envoi des données remplies dans le formulaire au service REST pour un ajout dans la base de données
     public void envoyerSaisie(View view) throws JSONException {
+        String matricule = Session.getSession().getLeVisiteur().getMatricule();
+        Log.i("APP-RV Envoi saisie","Date : "+dateSelectionnee);
+        Log.i("APP-RV Envoi saisie","Praticien : "+spPraticien.getSelectedItem());
+        Log.i("APP-RV Envoi saisie","Motif : "+spMotif.getSelectedItem());
+        Log.i("APP-RV Envoi saisie","Coef : "+spCoefConfiance.getSelectedItem());
+        Log.i("APP-RV Envoi saisie","Bilan : "+etBilan.getText());
+        Log.i("APP-RV Envoi saisie","Date Saisie : "+dateSaisie);
 
+        String url = "http://"+Ip.getIp()+":5000/rapports/" + matricule + "/" + dateSelectionnee + "/" + etBilan.getText().toString() + "/" + spCoefConfiance.getSelectedItem().toString() + "/" + dateSaisie + "/" + spMotif.getSelectedItem().toString() + "/" + praticienSelectionne; //Connexion au Web Service REST afin d'envoyer le rapport de visite dans la base de données
+
+        Response.Listener<JSONArray> ecouteurReponse = new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.i("APP-RV Envoi saisie","Reponse POST : " + response);
+            }
+        };
+        Response.ErrorListener ecouteurErreur = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("APP-RV Envoi saisie","Erreur HTTP : " + error.getMessage());
+            }
+        };
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, url, null, ecouteurReponse, ecouteurErreur);
+        RequestQueue fileRequetes = Volley.newRequestQueue(SaisieRvActivity.this);
+        fileRequetes.add(request);
+
+        Intent menuRv = new Intent(SaisieRvActivity.this, MenuRvActivity.class);
+        startActivity(menuRv);
     }
 }
