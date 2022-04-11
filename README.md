@@ -16,9 +16,9 @@
 
 1. [GSB - Description](https://github.com/AntoineTSIO/GSB-APPLI-RV/blob/main/docs/01-GSB-AppliRV-FicheDescriptive.pdf)
 2. [GSB - Cas d'utilisation](https://github.com/AntoineTSIO/GSB-APPLI-RV/blob/main/docs/02-GSB-AppliRV-Visiteur-UC.pdf)
-3. [GSB - Modèle Entité-Association](https://github.com/AntoineTSIO/GSB-APPLI-RV/blob/main/docs/01-GSB-AppliRV-MEA.pdf)
-4. [GSB - Diagramme de Navigation](https://github.com/AntoineTSIO/GSB-APPLI-RV/blob/main/docs/01-GSB-AppliRV-Navigation.pdf)
-5. [GSB - Documentation Web Service REST](https://github.com/AntoineTSIO/GSB-APPLI-RV/blob/main/docs/01-GSB-AppliRV-Documentation-API.pdf)
+3. [GSB - Modèle Entité-Association](https://github.com/AntoineTSIO/GSB-APPLI-RV/blob/main/docs/03-GSB-AppliRV-MEA.pdf)
+4. [GSB - Diagramme de Navigation](https://github.com/AntoineTSIO/GSB-APPLI-RV/blob/main/docs/04-GSB-AppliRV-Navigation.pdf)
+5. [GSB - Documentation Web Service REST](https://github.com/AntoineTSIO/GSB-APPLI-RV/blob/main/docs/05-GSB-AppliRV-Documentation-API.pdf)
 
 ## Base de données
 
