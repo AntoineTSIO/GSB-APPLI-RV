@@ -18,6 +18,7 @@ public class MenuRvActivity extends AppCompatActivity {
     //Définition des différents objets Java
     Button bConsulterRv;
     Button bSaisirRv;
+    Button bDeconnexion;
     TextView tvVisiteur;
     Visiteur vis;
 
@@ -29,6 +30,7 @@ public class MenuRvActivity extends AppCompatActivity {
         //Affectation des boutons et du textview aux objets Java
         bConsulterRv = findViewById(R.id.bConsulterRv);
         bSaisirRv = findViewById(R.id.bSaisirRv);
+        bDeconnexion = findViewById(R.id.bDeconnexion);
         tvVisiteur = findViewById(R.id.tvVisiteur);
 
         //Affichage du nom et du prenom du visiteur sur le menu
@@ -41,6 +43,7 @@ public class MenuRvActivity extends AppCompatActivity {
         bConsulterRv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.i("APP-RV Menu","Click vers consulter");
                 Intent intentionConsulterRv = new Intent(MenuRvActivity.this, RechercheRvActivity.class);
                 startActivity(intentionConsulterRv);
             }
@@ -49,8 +52,19 @@ public class MenuRvActivity extends AppCompatActivity {
         bSaisirRv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.i("APP-RV Menu","Click vers saisir");
                 Intent intentionSaisirRv = new Intent(MenuRvActivity.this, SaisieRvActivity.class);
                 startActivity(intentionSaisirRv);
+            }
+        });
+
+        bDeconnexion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("APP-RV Menu","Click vers connexion");
+                Intent intentionDeconnexion = new Intent(MenuRvActivity.this, MainActivity.class);
+                Session.fermer();
+                startActivity(intentionDeconnexion);
             }
         });
     }

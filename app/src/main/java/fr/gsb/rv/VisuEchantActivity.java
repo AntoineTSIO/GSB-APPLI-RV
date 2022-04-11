@@ -2,11 +2,13 @@ package fr.gsb.rv;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,6 +35,7 @@ public class VisuEchantActivity extends AppCompatActivity {
     Integer rap_num;
     TextView tvErreur;
     ArrayList<Echantillons> listeEchantillons = new ArrayList<>();
+    Button bMenu;
 
     class ItemEchantillonsAdapter extends ArrayAdapter<Echantillons>{
         ItemEchantillonsAdapter(){
@@ -67,6 +70,15 @@ public class VisuEchantActivity extends AppCompatActivity {
         matricule = Session.getSession().getLeVisiteur().getMatricule();
         lvEchantillons = (ListView) findViewById(R.id.lvEchantillonsOfferts);
         tvErreur = findViewById(R.id.tvErreur);
+        bMenu = findViewById(R.id.bMenu);
+
+        bMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentMenu = new Intent(VisuEchantActivity.this, MenuRvActivity.class);
+                startActivity(intentMenu);
+            }
+        });
 
         getEchantillonsOfferts(matricule, rap_num);
     }

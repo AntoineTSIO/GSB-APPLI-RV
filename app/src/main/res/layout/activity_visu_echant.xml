@@ -47,7 +47,21 @@
             <ListView
                 android:id="@+id/lvEchantillonsOfferts"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" >
+
+            </ListView>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="135dp" />
+
+            <Button
+                android:id="@+id/bMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Retour au Menu" />
+
         </LinearLayout>
     </FrameLayout>
 
